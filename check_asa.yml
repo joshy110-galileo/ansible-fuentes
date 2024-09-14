@@ -1,0 +1,23 @@
+---
+- name: Verificar Interfaces en Cisco ASA
+  hosts: ASA  # Asegúrate de que "ASA" esté correctamente definido en tu archivo de inventario
+  gather_facts: false
+
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.asa.asa
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_network_cli_ssh_type: paramiko
+
+  tasks:
+  - name: Ejecutar show ip address en ASA
+    cisco.asa.asa_command:
+      commands:
+        - show ip address
+    register: output
+
+  - name: Mostrar resultado de show ip address
+    debug:
+      var: output.stdout_lines
+

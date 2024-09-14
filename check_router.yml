@@ -1,0 +1,23 @@
+---
+- name: Probar conexión SSH con el router RBB e inside
+  hosts: rbb,inside  # Especifica solo el host rbb
+  gather_facts: no
+
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.ios.ios
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_network_cli_ssh_type: paramiko
+
+  tasks:
+    - name: Ejecutar comando show ip interface brief
+      cisco.ios.ios_command:
+        commands:
+          - show ip interface brief
+      register: output
+
+    - name: Mostrar resultado
+      debug:
+        var: output.stdout_lines
+

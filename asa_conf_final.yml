@@ -1,0 +1,32 @@
+---
+- name: Cisco ASA configuration
+  hosts: ASA  # Asegúrate de que "ASA" esté correctamente definido en tu archivo de inventario
+  gather_facts: false
+
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.asa.asa
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_network_cli_ssh_type: paramiko
+
+  tasks:
+  - name: Configure Interface GigabitEthernet0/3
+    cisco.asa.asa_config:
+      lines:
+        - description To outside connection
+        - nameif outside
+        - security-level 0
+        - ip address 30.0.0.1 255.0.0.0
+        - no shutdown
+      parents: interface GigabitEthernet0/3
+
+  - name: Configure Interface GigabitEthernet0/4
+    cisco.asa.asa_config:
+      lines:
+        - description To dmz connection
+        - nameif dmz
+        - security-level 50
+        - ip address 20.0.0.1 255.0.0.0
+        - no shutdown
+      parents: interface GigabitEthernet0/4
