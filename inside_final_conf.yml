@@ -43,11 +43,11 @@
     cisco.ios.ios_config:
       lines:
         - description To ASA connection
-        - ip address 10.0.0.10 255.0.0.0
+        - ip address 20.0.0.10 255.0.0.0
         - no shutdown
       parents: interface GigabitEthernet0/2
 
   - name: Configure Route to Inside
     cisco.ios.ios_config:
       lines:
-        - ip route 30.0.0.0 255.0.0.0 10.0.0.1
+        - ip route 30.0.0.0 255.0.0.0 20.0.0.1
