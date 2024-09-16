@@ -50,4 +50,4 @@
   - name: Configure Route to Inside
     cisco.ios.ios_config:
       lines:
-        - ip route 10.0.0.0 255.0.0.0 30.0.0.1
+        - ip route 20.0.0.0 255.0.0.0 30.0.0.1
